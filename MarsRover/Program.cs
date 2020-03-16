@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text;
 using Domain.Controllers;
+using Domain.Model.Messages;
 using Domain.Services.Grid;
 using Domain.Services.Rover;
 using Ninject;
@@ -10,16 +11,32 @@ namespace MarsRover
 {
   public class Program
   {
+   static  IMissionController _missionController ;
 
     static void Main(string[] args)
     {
       BindDepedencies();
       var missionInput = GetMissionInput();
-      Console.WriteLine(input);
+      if (!ValidateMissionInput(missionInput))
+      {
+        Console.WriteLine("Input in wrong format. Mission aborted");
+        Environment.Exit(0);
+      }
+      
+      var missionResult=   _missionController.StartMission(new MissionInput {Input = missionInput});
+      
+      Console.WriteLine(missionResult.MissionOutput);
 
 
-      Console.Write("Enter to exit");
+      Console.ReadLine();
 
+    }
+
+    private static bool ValidateMissionInput(string missionInput)
+    {
+      // TODO:
+      // enforce odd number of rows
+      return true;
     }
 
     private static string GetMissionInput()
@@ -40,7 +57,7 @@ namespace MarsRover
       kernel.Load(Assembly.GetExecutingAssembly());
       var roverService = kernel.Get<IRoverService>();
       var gridService = kernel.Get<IGridService>();
-      IMissionController missionController = new MissionController(roverService, gridService);
+       _missionController = new MissionController(roverService, gridService);
     }
   }
 }
