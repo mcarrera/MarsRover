@@ -1,10 +1,16 @@
-﻿namespace Domain.Model.Rover
+﻿using Domain.Model.Enums;
+
+namespace Domain.Model.Rover
 {
   public interface IRover
   {
-    void SetPosition(string position);
+    void SetPosition(Position.Position position);
 
-    string GetPosition();
+    Position.Position GetPosition();
+
+    void SetHeading(Heading heading);
+
+    Heading GetHeading();
 
     void MoveForward();
 

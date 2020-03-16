@@ -10,13 +10,11 @@ namespace Domain.Model.Grid
     private uint _height;
 
     private uint _width;
-    private IGrid _gridImplementation;
-
+    
     public Grid(IList<IRover> rovers)
     {
       _rovers = rovers;
     }
-    
 
     public void AddRover(IRover rover)
     {
@@ -33,16 +31,15 @@ namespace Domain.Model.Grid
     {
       return _width;
     }
-    
 
     public uint GetHeight()
     {
       return _height;
     }
 
-    public bool IsPositionOutSideGrid(Position position)
+    public bool IsPositionOutSideGrid(Position.Position position)
     {
-      return false;
+      return position.X > _width - 1 || position.Y > _height - 1;
     }
   }
 }

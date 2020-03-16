@@ -1,4 +1,5 @@
-using System;
+using Domain.Model.Enums;
+using Domain.Model.Position;
 using Domain.Model.Rover;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -7,183 +8,196 @@ namespace Domain.Test.Model.Rover
   [TestClass]
   public class RoverTests
   {
+    private static IRover _rover;
+
+    [ClassInitialize]
+    public static void TestFixtureSetup(TestContext context)
+    {
+      _rover = new Domain.Model.Rover.Rover();
+      _rover.SetPosition(new Position
+      {
+        X = 1000,
+        Y = 1000,
+      });
+    }
 
     [TestMethod]
-    public void SetPosition_SanitizeWhiteSpaces()
+    public void SetAndGetPosition()
     {
-      // Arrange 
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("    5   5    N                                       ");
-      Assert.IsTrue(rover.GetPosition() == "5 5 N");
+      //Act
+      _rover.SetPosition(new Position
+      {
+        X = _rover.GetPosition().X,
+        Y = _rover.GetPosition().Y
+      });
+      //Assert
+      Assert.IsTrue(_rover.GetPosition().X == 5 && _rover.GetPosition().Y == 5);
+
     }
+
 
     [TestMethod]
     public void RotateLeftFromNorth_ExpectedWest()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55N");
+      _rover.SetHeading(Heading.North);
 
       // Act
-      rover.RotateLeft();
+      _rover.RotateLeft();
 
       // Assert
-      Console.WriteLine(rover.GetPosition());
-      Assert.IsTrue(rover.GetPosition() == "5 5 W");
+      Assert.IsTrue(_rover.GetHeading() == Heading.West);
     }
 
     [TestMethod]
     public void RotateLeftFromEast_ExpectedNorth()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55E");
+      _rover.SetHeading(Heading.East);
 
       // Act
-      rover.RotateLeft();
+      _rover.RotateLeft();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 5 N");
+      Assert.IsTrue(_rover.GetHeading() == Heading.North);
     }
 
     [TestMethod]
     public void RotateLeftFromSouth_ExpectedEast()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55S");
+      _rover.SetHeading(Heading.South);
 
       // Act
-      rover.RotateLeft();
+      _rover.RotateLeft();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 5 E");
+      Assert.IsTrue(_rover.GetHeading() == Heading.East);
     }
 
     [TestMethod]
     public void RotateLeftFromWest_ExpectedSouth()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55W");
+      _rover.SetHeading(Heading.West);
 
       // Act
-      rover.RotateLeft();
+      _rover.RotateLeft();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 5 S");
+      Assert.IsTrue(_rover.GetHeading() == Heading.South);
     }
 
     [TestMethod]
     public void RotateRightFromNorth_ExpectedEast()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55N");
+      _rover.SetHeading(Heading.North);
 
       // Act
-      rover.RotateRight();
+      _rover.RotateRight();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 5 E");
+      Assert.IsTrue(_rover.GetHeading() == Heading.East);
     }
 
     [TestMethod]
     public void RotateRightFromEast_ExpectedSouth()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55E");
+      _rover.SetHeading(Heading.East);
 
       // Act
-      rover.RotateRight();
+      _rover.RotateRight();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 5 S");
+      Assert.IsTrue(_rover.GetHeading() == Heading.South);
     }
 
     [TestMethod]
     public void RotateRightFromSouth_ExpectedWest()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55S");
+      _rover.SetHeading(Heading.South);
 
       // Act
-      rover.RotateRight();
+      _rover.RotateRight();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 5 W");
+      Assert.IsTrue(_rover.GetHeading() == Heading.West);
     }
 
     [TestMethod]
     public void RotateRightFromWest_ExpectedNorth()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55W");
+      _rover.SetHeading(Heading.West);
 
       // Act
-      rover.RotateRight();
+      _rover.RotateRight();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 5 N");
+      Assert.IsTrue(_rover.GetHeading() == Heading.North);
     }
 
     [TestMethod]
     public void MoveForwardFacingNorth()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55N");
+      _rover.SetHeading(Heading.North);
 
       // Act
-      rover.MoveForward();
+      var x = _rover.GetPosition().X;
+      var y = _rover.GetPosition().Y;
+      _rover.MoveForward();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 6 N");
+      Assert.IsTrue(_rover.GetPosition().X == x && _rover.GetPosition().Y == y + 1);
     }
 
     [TestMethod]
     public void MoveForwardFacingSouth()
     {
       // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55S");
+      _rover.SetHeading(Heading.South);
 
       // Act
-      rover.MoveForward();
+      var x = _rover.GetPosition().X;
+      var y = _rover.GetPosition().Y;
+      _rover.MoveForward();
 
       // Assert
-      Assert.IsTrue(rover.GetPosition() == "5 4 S");
+      Assert.IsTrue(_rover.GetPosition().X == x && _rover.GetPosition().Y == y - 1);
     }
 
     [TestMethod]
     public void MoveForwardFacingWest()
     {
-      // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55W");
+      //Arrange
+      _rover.SetHeading(Heading.West);
 
-      // Act
-      rover.MoveForward();
+      //  Act
+      var x = _rover.GetPosition().X;
+      var y = _rover.GetPosition().Y;
+      _rover.MoveForward();
 
-      // Assert
-      Assert.IsTrue(rover.GetPosition() == "4 5 W");
+      //   Assert
+      Assert.IsTrue(_rover.GetPosition().X == x - 1 && _rover.GetPosition().Y == y);
     }
 
-    [TestMethod]
+    //[TestMethod]
     public void MoveForwardFacingEast()
     {
-      // Arrange
-      IRover rover = new Domain.Model.Rover.Rover();
-      rover.SetPosition("55E");
+      //Arrange
+      _rover.SetHeading(Heading.East);
 
-      // Act
-      rover.MoveForward();
+      //  Act
+      var x = _rover.GetPosition().X;
+      var y = _rover.GetPosition().Y;
+      _rover.MoveForward();
 
-      // Assert
-      Assert.IsTrue(rover.GetPosition() == "6 5 E");
+      //   Assert
+      Assert.IsTrue(_rover.GetPosition().X == x + 1 && _rover.GetPosition().Y == y);
     }
 
   }

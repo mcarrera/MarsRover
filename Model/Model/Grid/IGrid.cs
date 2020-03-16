@@ -10,7 +10,7 @@ namespace Domain.Model.Grid
     uint GetWidth();
     uint GetHeight();
 
-    bool IsPositionOutSideGrid(Position position);
+    bool IsPositionOutSideGrid(Position.Position position);
   }
 
 

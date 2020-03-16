@@ -49,7 +49,7 @@
     <Compile Include="Model\Grid\IGrid.cs" />
     <Compile Include="Model\Rover\IRover.cs" />
     <Compile Include="Services\Rover\IRoverService.cs" />
-    <Compile Include="Model\Rover\Position.cs" />
+    <Compile Include="Model\Position\Position.cs" />
     <Compile Include="Model\Rover\Rover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Rover\RoverService.cs" />

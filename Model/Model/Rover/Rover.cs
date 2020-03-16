@@ -1,36 +1,47 @@
 ﻿using Domain.Model.Enums;
 using System;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Domain.Model.Rover
 {
   internal class Rover : IRover
   {
 
+    internal Position.Position Position { get; set; }
+
+    internal Heading Heading;
+
     public Guid Id { get; set; }
 
     public Rover()
     {
-      Position = new Position();
+      Position = new Position.Position();
       Id = Guid.NewGuid();
     }
 
-    internal Position Position { get; set; }
 
-    public void SetPosition(string position)
+
+    public void SetPosition(Position.Position position)
     {
-      position = Regex.Replace(position, @"\s+", "");
-      Position.X = (uint)char.GetNumericValue(position[0]);
-      Position.Y = (uint)char.GetNumericValue(position[1]);
-      Position.Heading = GetDirectionFromPosition(position);
+      Position = position;
     }
 
-    public string GetPosition()
+    public Position.Position GetPosition()
     {
-      return $"{Position.X} {Position.Y} {Position.Heading.ToString().First()}"; ;
+      return Position;
     }
 
+    public void SetHeading(Heading heading)
+    {
+      Heading = heading;
+    }
+
+    public Heading GetHeading()
+    {
+      return Heading;
+    }
+
+
+    [Obsolete]
     private static Heading GetDirectionFromPosition(string position)
     {
       switch (position[2])
@@ -50,7 +61,7 @@ namespace Domain.Model.Rover
 
     public void MoveForward()
     {
-      switch (Position.Heading)
+      switch (Heading)
       {
         case Heading.North:
           Position.Y++;
@@ -72,12 +83,12 @@ namespace Domain.Model.Rover
 
     public void RotateLeft()
     {
-      Position.Heading = (Heading)(((int)Position.Heading - 90 + 360) % 360);
+      Heading = (Heading)(((int)Heading - 90 + 360) % 360);
     }
 
     public void RotateRight()
     {
-      Position.Heading = (Heading)(((int)Position.Heading + 90) % 360);
+      Heading = (Heading)(((int)Heading + 90) % 360);
     }
   }
 }
