@@ -34,6 +34,9 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,10 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\IMissionController.cs" />
+    <Compile Include="Controllers\MissionController.cs" />
     <Compile Include="Model\Enums\Heading.cs" />
     <Compile Include="Model\Grid\Grid.cs" />
     <Compile Include="Model\Grid\IGrid.cs" />
+    <Compile Include="Model\Messages\MissionInput.cs" />
+    <Compile Include="Model\Messages\MissionResult.cs" />
     <Compile Include="Model\Rover\IRover.cs" />
+    <Compile Include="Services\Grid\GridService.cs" />
+    <Compile Include="Services\Grid\IGridService.cs" />
     <Compile Include="Services\Rover\IRoverService.cs" />
     <Compile Include="Model\Position\Position.cs" />
     <Compile Include="Model\Rover\Rover.cs" />

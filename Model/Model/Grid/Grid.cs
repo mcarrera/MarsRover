@@ -7,10 +7,10 @@ namespace Domain.Model.Grid
   {
     private readonly IList<IRover> _rovers;
 
-    private uint _height;
+    private ulong _height;
 
-    private uint _width;
-    
+    private ulong _width;
+
     public Grid(IList<IRover> rovers)
     {
       _rovers = rovers;
@@ -20,19 +20,23 @@ namespace Domain.Model.Grid
     {
       _rovers.Add(rover);
     }
-
-    public void SetSize(uint width, uint height)
+    
+    public void SetWitdh(ulong width)
     {
       _width = width;
+    }
+
+    public void SetHeight(ulong height)
+    {
       _height = height;
     }
 
-    public uint GetWidth()
+    public ulong GetWidth()
     {
       return _width;
     }
 
-    public uint GetHeight()
+    public ulong GetHeight()
     {
       return _height;
     }

@@ -40,7 +40,6 @@ namespace Domain.Model.Rover
       return Heading;
     }
 
-
     [Obsolete]
     private static Heading GetDirectionFromPosition(string position)
     {

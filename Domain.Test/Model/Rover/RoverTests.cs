@@ -22,21 +22,6 @@ namespace Domain.Test.Model.Rover
     }
 
     [TestMethod]
-    public void SetAndGetPosition()
-    {
-      //Act
-      _rover.SetPosition(new Position
-      {
-        X = _rover.GetPosition().X,
-        Y = _rover.GetPosition().Y
-      });
-      //Assert
-      Assert.IsTrue(_rover.GetPosition().X == 5 && _rover.GetPosition().Y == 5);
-
-    }
-
-
-    [TestMethod]
     public void RotateLeftFromNorth_ExpectedWest()
     {
       // Arrange

@@ -1,3 +1,7 @@
+using Domain.Model.Enums;
+using Domain.Model.Position;
+using Domain.Model.Rover;
+using Domain.Services.Rover;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Domain.Test.Services.Rover
@@ -5,35 +9,60 @@ namespace Domain.Test.Services.Rover
   [TestClass]
   public class RoverServiceTests
   {
-    //[TestMethod]
-    //public void SetRoverPosition()
-    //{
-    //  // Arrange
-    //  IRoverService service = new RoverService();
-    //  IRover rover = new Domain.Model.Position.Rover();
-    //  var position = "00N";
+    private static IRover _rover;
+    private static IRoverService _service = new RoverService();
 
-    //  // Act
-    //  service.SetRoverPosition(rover, position);
-    //  // Assert
-    //  Assert.IsTrue(service.GetRoverPosition(rover) == "0 0 N");
-    //}
+    [ClassInitialize]
+    public static void TestFixtureSetup(TestContext context)
+    {
+      _service = new RoverService();
+      _rover = new Domain.Model.Rover.Rover();
 
-    //[TestMethod]
-    //public void MoveRover_1()
-    //{
-    //  // Arrange
-    //  IRoverService service = new RoverService();
-    //  IRover rover = new Domain.Model.Position.Rover();
-    //  rover.SetPosition("12N");
-    //  var instructions = "LMLMLMLMM";
+    }
 
-    //  // Act
-    //  service.MoveRover(rover, instructions);
+    [TestInitialize]
+    public  void SetRoverInitialPosition()
+    {
+      var initialRoverPosition = new Position { X = 1000, Y = 1000 };
+      _rover.SetPosition(initialRoverPosition);
+    }
 
-    //  // Assert
-    //  Assert.IsTrue(rover.GetPosition() == "1 3 N");
-    //}
+
+    [TestMethod]
+    public void SetGetRoverPosition()
+    {
+      // Arrange
+      var expected = new Position { X = 0, Y = 0 };
+      _service.SetRoverPosition(_rover, expected);
+
+      // Act
+      var actual = _service.GetRoverPosition(_rover);
+
+      // Assert
+      Assert.IsTrue(expected.X == actual.X &&
+                    expected.X == actual.Y);
+    }
+
+    [TestMethod]
+    public void SetGetRoverHeading()
+    {
+      // Arrange
+      var expected = Heading.West;
+      _service.SetRoverHeading(_rover, expected);
+
+      // Act
+      var actual = _service.GetRoverHeading(_rover);
+
+      // Assert
+      Assert.IsTrue(actual==expected);
+    }
+
+    [TestMethod]
+    public void MoveRover_1()
+    {
+      // Arrange
+     
+    }
     //[TestMethod]
     //public void MoveRover_2()
     //{

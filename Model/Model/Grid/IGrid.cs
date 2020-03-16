@@ -1,14 +1,13 @@
-﻿using Domain.Model.Rover;
-
-namespace Domain.Model.Grid
+﻿namespace Domain.Model.Grid
 {
-  interface IGrid
+  public interface IGrid
   {
-    void AddRover(IRover rover);
-    void SetSize(uint width, uint height);
+    void SetWitdh(ulong width);
 
-    uint GetWidth();
-    uint GetHeight();
+    void SetHeight(ulong height);
+
+    ulong GetWidth();
+    ulong GetHeight();
 
     bool IsPositionOutSideGrid(Position.Position position);
   }
