@@ -11,11 +11,6 @@ namespace Domain.Model.Grid
 
     private ulong _width;
 
-    public Grid(IList<IRover> rovers)
-    {
-      _rovers = rovers;
-    }
-
     public void AddRover(IRover rover)
     {
       _rovers.Add(rover);

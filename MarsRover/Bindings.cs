@@ -1,4 +1,5 @@
-﻿using Domain.Services.Grid;
+﻿using Domain.Model.Grid;
+using Domain.Services.Grid;
 using Domain.Services.Rover;
 using Ninject.Modules;
 
