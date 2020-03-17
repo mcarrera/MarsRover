@@ -11,6 +11,7 @@ namespace MarsRover
     {
       Bind<IRoverService>().To<RoverService>();
       Bind<IGridService>().To<GridService>();
+      Bind<IGrid>().To<Grid>();
     }
   }
 }

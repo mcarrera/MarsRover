@@ -3,7 +3,7 @@ using Domain.Model.Rover;
 
 namespace Domain.Model.Grid
 {
-  class Grid : IGrid
+  public class Grid : IGrid
   {
     private readonly IList<IRover> _rovers;
 
@@ -11,11 +11,16 @@ namespace Domain.Model.Grid
 
     private ulong _width;
 
+    public Grid()
+    {
+      _rovers = new List<IRover>();
+    }
+
     public void AddRover(IRover rover)
     {
       _rovers.Add(rover);
     }
-    
+
     public void SetWitdh(ulong width)
     {
       _width = width;

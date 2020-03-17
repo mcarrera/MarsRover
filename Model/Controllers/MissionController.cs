@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Model.Enums;
 using Domain.Model.Exceptions;
 using Domain.Model.Grid;
 using Domain.Model.Messages;
+using Domain.Model.Position;
+using Domain.Model.Rover;
 using Domain.Services.Grid;
 using Domain.Services.Rover;
 
@@ -24,18 +27,68 @@ namespace Domain.Controllers
 
     public MissionResult StartMission(MissionInput missionInput)
     {
-      var input = ParseInput(missionInput);
-      InitialiazeGrid(missionInput.Input);
+      var inputLines = ParseInput(missionInput).ToArray();
+      var gridSize = inputLines[0];
 
-      MoveRovers(missionInput.Input);
+      InitialiazeGrid(gridSize);
+
+      var roverInstructions = inputLines.ToList();
+      roverInstructions.RemoveAt(0);
+      MoveRovers(roverInstructions);
 
       //
       return new MissionResult();
     }
 
-    private void MoveRovers(string missionInputInput)
+    private static void MoveRovers(IEnumerable<string> roverInstructions)
     {
+      var lines = roverInstructions.ToArray();
+      for (var i = 0; i < lines.Count(); i = i + 2)
+      {
+        IRover rover = null;
+        rover = InitializeRover(lines[i]);
+        MoveRover(rover, lines[i+1]);
+      }
+    }
+
+
+
+    private static IRover InitializeRover(string initialPosition)
+    {
+      IRover rover = new Rover();
+      var items = initialPosition.Trim().Split(' ');
+      rover.SetPosition(new Position
+      {
+        X = Convert.ToUInt64(items[0]),
+        Y = Convert.ToUInt64(items[1])
+      });
+
+      switch (items[2].ToUpperInvariant())
+      {
+        case "N":
+          rover.SetHeading(Heading.North);
+          break;
+        case "S":
+          rover.SetHeading(Heading.South);
+          break;
+        case "E":
+          rover.SetHeading(Heading.East);
+          break;
+        case "W":
+          rover.SetHeading(Heading.West);
+          break;
+        default:
+          throw  new MissionInputException($"Invalid input for rover initial direction: ${items[2]}");
+        
+      }
+      
      
+      return rover;
+    }
+
+    private static void MoveRover(IRover rover, string roverInstructions)
+    {
+      throw new NotImplementedException();
     }
 
     /// <summary>
@@ -74,7 +127,7 @@ namespace Domain.Controllers
       if (lines.Length == 0 || lines.Length % 2 != 1)
         throw new MissionInputException("Wrong Format Input String");
 
-      // todo: more validations
+      // todo:  validation on 
       return lines;
     }
   }
