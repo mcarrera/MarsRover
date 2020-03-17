@@ -40,7 +40,7 @@ namespace Domain.Controllers
       return new MissionResult { MissionIsSuccess = true, RoversOutput = result };
     }
 
-    private Dictionary<Guid,string> ProcessRoverInstructions(IEnumerable<string> roverInstructions)
+    private Dictionary<Guid, string> ProcessRoverInstructions(IEnumerable<string> roverInstructions)
     {
       var result = new Dictionary<Guid, string>();
       var lines = roverInstructions.ToArray();
@@ -52,8 +52,8 @@ namespace Domain.Controllers
 
       return result;
     }
-    
-    private  IRover InitializeRover(string initialPosition)
+
+    private IRover InitializeRover(string initialPosition)
     {
       IRover rover = new Rover();
       var items = initialPosition.Trim().Split(' ');
@@ -105,7 +105,7 @@ namespace Domain.Controllers
             }
             else
             {
-              //todo
+              throw new MoveOutOfBoundariesException($"Rover stepping out of the grid.");
             }
             break;
           default:
@@ -131,8 +131,8 @@ namespace Domain.Controllers
       var currentPosition = _roverService.GetRoverPosition(rover);
       var heading = _roverService.GetRoverHeading(rover);
 
-      var gridMaxY = _gridService.GetGridHeight(_grid) + 1;
-      var gridMaxX = _gridService.GetGridWidth(_grid) + 1;
+      var gridMaxY = _gridService.GetGridHeight(_grid) - 1;
+      var gridMaxX = _gridService.GetGridWidth(_grid) - 1;
       switch (heading)
       {
         case Heading.North:
@@ -164,8 +164,8 @@ namespace Domain.Controllers
 
       var inputs = input.Trim().Split(' ');
 
-      _grid.SetHeight(Convert.ToUInt64(inputs[0]));
-      _grid.SetWitdh(Convert.ToUInt64(inputs[1]));
+      _grid.SetHeight(Convert.ToUInt64(inputs[0]) + 1);
+      _grid.SetWitdh(Convert.ToUInt64(inputs[1]) + 1);
     }
 
 

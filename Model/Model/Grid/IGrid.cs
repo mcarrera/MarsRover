@@ -8,8 +8,6 @@
 
     ulong GetWidth();
     ulong GetHeight();
-
-    bool IsPositionOutSideGrid(Position.Position position);
   }
 
 
