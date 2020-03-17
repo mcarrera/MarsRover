@@ -18,8 +18,6 @@ namespace Domain.Model.Rover
       Id = Guid.NewGuid();
     }
 
-
-
     public void SetPosition(Position.Position position)
     {
       Position = position;

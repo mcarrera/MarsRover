@@ -7,6 +7,6 @@ namespace Domain.Model.Enums
     [Description("N")] North = 0,
     [Description("E")] East = 90,
     [Description("S")] South = 180,
-    [Description("W")] West = 270
+    [Description("W")] West = 270,
   }
 }

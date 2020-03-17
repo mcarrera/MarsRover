@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Model.Enums;
+﻿using Domain.Model.Enums;
 using Domain.Model.Position;
 using Domain.Model.Rover;
 

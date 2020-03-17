@@ -11,5 +11,7 @@ namespace Domain.Services.Grid
     ulong GetGridHeight(IGrid grid);
 
     ulong GetGridWidth(IGrid grid);
+
+    
   }
 }

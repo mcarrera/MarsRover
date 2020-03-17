@@ -3,7 +3,6 @@ using Domain.Model.Messages;
 using Domain.Services.Grid;
 using Domain.Services.Rover;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
 
 namespace Domain.Test.Controllers

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Domain.Model.Enums;
 using Domain.Model.Exceptions;
 using Domain.Model.Grid;
@@ -53,10 +52,8 @@ namespace Domain.Controllers
 
       return result;
     }
-
-
-
-    private static IRover InitializeRover(string initialPosition)
+    
+    private  IRover InitializeRover(string initialPosition)
     {
       IRover rover = new Rover();
       var items = initialPosition.Trim().Split(' ');
@@ -69,16 +66,16 @@ namespace Domain.Controllers
       switch (items[2].ToUpperInvariant())
       {
         case "N":
-          rover.SetHeading(Heading.North);
+          _roverService.SetRoverHeading(rover, Heading.North);
           break;
         case "S":
-          rover.SetHeading(Heading.South);
+          _roverService.SetRoverHeading(rover, Heading.South);
           break;
         case "E":
-          rover.SetHeading(Heading.East);
+          _roverService.SetRoverHeading(rover, Heading.East);
           break;
         case "W":
-          rover.SetHeading(Heading.West);
+          _roverService.SetRoverHeading(rover, Heading.West);
           break;
         default:
           throw new MissionInputException($"Invalid input for rover initial direction: ${items[2]}");
@@ -165,16 +162,12 @@ namespace Domain.Controllers
     {
       _grid = new Grid();
 
-      var line = GetLineItems(input).ToArray();
+      var inputs = input.Trim().Split(' ');
 
-      _grid.SetHeight(Convert.ToUInt64(line[0]));
-      _grid.SetWitdh(Convert.ToUInt64(line[1]));
+      _grid.SetHeight(Convert.ToUInt64(inputs[0]));
+      _grid.SetWitdh(Convert.ToUInt64(inputs[1]));
     }
 
-    private static IEnumerable<string> GetLineItems(string input)
-    {
-      return input.Trim().Split(' ');
-    }
 
     /// <summary>
     /// Perform validation on the input string, and returns the input as lines of input

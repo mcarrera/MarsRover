@@ -5,6 +5,7 @@ namespace Domain.Model.Rover
 {
   public interface IRover
   {
+    Guid GetId();
     void SetPosition(Position.Position position);
 
     Position.Position GetPosition();
@@ -18,6 +19,5 @@ namespace Domain.Model.Rover
     void RotateLeft();
 
     void RotateRight();
-    Guid GetId();
   }
 }
