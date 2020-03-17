@@ -14,5 +14,15 @@ namespace Domain.Services.Grid
     {
       grid.SetWitdh(width);
     }
+
+    public ulong GetGridHeight(IGrid grid)
+    {
+      return grid.GetHeight();
+    }
+
+    public ulong GetGridWidth(IGrid grid)
+    {
+      return grid.GetWidth();
+    }
   }
 }

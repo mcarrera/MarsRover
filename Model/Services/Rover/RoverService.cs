@@ -27,25 +27,19 @@ namespace Domain.Services.Rover
       return rover.GetHeading();
     }
 
-    public void MoveRover(IRover rover, string instructions)
+    public void MoveRoverForward(IRover rover)
     {
-      foreach (var item in instructions)
-      {
-        switch (item)
-        {
-          case 'L':
-            rover.RotateLeft();
-            break;
-          case 'R':
-            rover.RotateRight();
-            break;
-          case 'M':
-            rover.MoveForward();
-            break;
-          default:
-            throw new ArgumentOutOfRangeException();
-        }
-      }
+      rover.MoveForward();
+    }
+
+    public void RotateRoverLeft(IRover rover)
+    {
+      rover.RotateLeft();
+    }
+
+    public void RotateRoverRight(IRover rover)
+    {
+      rover.RotateRight();
     }
   }
 }

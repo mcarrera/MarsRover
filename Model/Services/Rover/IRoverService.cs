@@ -14,6 +14,10 @@ namespace Domain.Services.Rover
 
     Heading GetRoverHeading(IRover rover);
 
-    void MoveRover(IRover rover, string instructions);
+    void MoveRoverForward(IRover rover);
+
+    void RotateRoverLeft(IRover rover);
+
+    void RotateRoverRight(IRover rover);
   }
 }

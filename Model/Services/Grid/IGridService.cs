@@ -7,5 +7,9 @@ namespace Domain.Services.Grid
     void SetGridHeight(IGrid grid, ulong height);
 
     void SetGridWidth(IGrid grid, ulong width);
+
+    ulong GetGridHeight(IGrid grid);
+
+    ulong GetGridWidth(IGrid grid);
   }
 }

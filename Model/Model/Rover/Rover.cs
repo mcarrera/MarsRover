@@ -40,24 +40,6 @@ namespace Domain.Model.Rover
       return Heading;
     }
 
-    [Obsolete]
-    private static Heading GetDirectionFromPosition(string position)
-    {
-      switch (position[2])
-      {
-        case 'N':
-          return Heading.North;
-        case 'E':
-          return Heading.East;
-        case 'S':
-          return Heading.South;
-        case 'W':
-          return Heading.West;
-        default:
-          throw new ArgumentOutOfRangeException();
-      }
-    }
-
     public void MoveForward()
     {
       switch (Heading)

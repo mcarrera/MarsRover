@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Domain.Model.Enums;
 using Domain.Model.Exceptions;
 using Domain.Model.Grid;
@@ -34,21 +35,23 @@ namespace Domain.Controllers
 
       var roverInstructions = inputLines.ToList();
       roverInstructions.RemoveAt(0);
-      MoveRovers(roverInstructions);
+      var result = ProcessRoverInstructions(roverInstructions);
 
       //
-      return new MissionResult();
+      return new MissionResult { MissionIsSuccess = true, MissionOutput = result };
     }
 
-    private static void MoveRovers(IEnumerable<string> roverInstructions)
+    private string ProcessRoverInstructions(IEnumerable<string> roverInstructions)
     {
+      var result = new StringBuilder();
       var lines = roverInstructions.ToArray();
       for (var i = 0; i < lines.Count(); i = i + 2)
       {
-        IRover rover = null;
-        rover = InitializeRover(lines[i]);
-        MoveRover(rover, lines[i+1]);
+        var rover = InitializeRover(lines[i]);
+        result.AppendLine(ProcessRoverInstruction(rover, lines[i + 1]));
       }
+
+      return result.ToString();
     }
 
 
@@ -78,17 +81,80 @@ namespace Domain.Controllers
           rover.SetHeading(Heading.West);
           break;
         default:
-          throw  new MissionInputException($"Invalid input for rover initial direction: ${items[2]}");
-        
+          throw new MissionInputException($"Invalid input for rover initial direction: ${items[2]}");
+
       }
-      
-     
+
+
       return rover;
     }
 
-    private static void MoveRover(IRover rover, string roverInstructions)
+    private string ProcessRoverInstruction(IRover rover, string roverInstructions)
     {
-      throw new NotImplementedException();
+      foreach (var move in roverInstructions.ToUpperInvariant())
+      {
+        switch (move)
+        {
+          case 'L':
+            _roverService.RotateRoverLeft(rover);
+            break;
+          case 'R':
+            _roverService.RotateRoverRight(rover);
+            break;
+          case 'M':
+            if (IsMovingWithinBoundaries(rover))
+            {
+              _roverService.MoveRoverForward(rover);
+            }
+            else
+            {
+              //todo
+            }
+            break;
+          default:
+            // todo:?
+            break;
+        }
+      }
+
+      return GetRoverPositionAndHeadingString(rover);
+
+    }
+
+    private string GetRoverPositionAndHeadingString(IRover rover)
+    {
+      var position = _roverService.GetRoverPosition(rover);
+      var heading = _roverService.GetRoverHeading(rover);
+
+      return $"{position.X} {position.Y} {heading.ToString().First()}";
+    }
+
+    private bool IsMovingWithinBoundaries(IRover rover)
+    {
+      var currentPosition = _roverService.GetRoverPosition(rover);
+      var heading = _roverService.GetRoverHeading(rover);
+
+      var gridMaxY = _gridService.GetGridHeight(_grid) + 1;
+      var gridMaxX = _gridService.GetGridWidth(_grid) + 1;
+      switch (heading)
+      {
+        case Heading.North:
+          if (currentPosition.Y == gridMaxY) return false;
+          break;
+        case Heading.East:
+          if (currentPosition.X == gridMaxX) return false;
+          break;
+        case Heading.South:
+          if (currentPosition.Y == 0) return false;
+          break;
+        case Heading.West:
+          if (currentPosition.X == 0) return false;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+
+      return true;
     }
 
     /// <summary>
