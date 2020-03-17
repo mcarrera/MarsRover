@@ -1,4 +1,5 @@
-﻿using Domain.Model.Enums;
+﻿using System;
+using Domain.Model.Enums;
 
 namespace Domain.Model.Rover
 {
@@ -17,6 +18,6 @@ namespace Domain.Model.Rover
     void RotateLeft();
 
     void RotateRight();
-
+    Guid GetId();
   }
 }

@@ -71,5 +71,10 @@ namespace Domain.Model.Rover
     {
       Heading = (Heading)(((int)Heading + 90) % 360);
     }
+
+    public Guid GetId()
+    {
+      return Id;
+    }
   }
 }

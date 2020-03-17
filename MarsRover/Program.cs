@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Domain.Controllers;
@@ -23,17 +24,18 @@ namespace MarsRover
 
       if (missionResult.MissionIsSuccess)
       {
-        PrintMissionResult(missionResult.MissionOutput);
+        PrintMissionResult(missionResult.RoversOutput);
       }
 
       Console.ReadLine();
 
     }
 
-    private static void PrintMissionResult(string missionOutput)
+    private static void PrintMissionResult(Dictionary<Guid, string> missionOutput)
     {
       Console.WriteLine("Mission Successful. Results:");
-      Console.WriteLine(missionOutput);
+      foreach (var item in missionOutput)
+        Console.WriteLine(item.Value);
     }
 
 

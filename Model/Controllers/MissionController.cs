@@ -38,20 +38,20 @@ namespace Domain.Controllers
       var result = ProcessRoverInstructions(roverInstructions);
 
       //
-      return new MissionResult { MissionIsSuccess = true, MissionOutput = result };
+      return new MissionResult { MissionIsSuccess = true, RoversOutput = result };
     }
 
-    private string ProcessRoverInstructions(IEnumerable<string> roverInstructions)
+    private Dictionary<Guid,string> ProcessRoverInstructions(IEnumerable<string> roverInstructions)
     {
-      var result = new StringBuilder();
+      var result = new Dictionary<Guid, string>();
       var lines = roverInstructions.ToArray();
       for (var i = 0; i < lines.Count(); i = i + 2)
       {
         var rover = InitializeRover(lines[i]);
-        result.AppendLine(ProcessRoverInstruction(rover, lines[i + 1]));
+        result.Add(rover.GetId(), ProcessRoverInstruction(rover, lines[i + 1]));
       }
 
-      return result.ToString();
+      return result;
     }
 
 

@@ -11,25 +11,12 @@ namespace Domain.Test.Controllers
   [TestClass]
   public class MissionControllerTests
   {
-    private MockRepository mockRepository;
 
-    private Mock<IRoverService> mockRoverService;
-    private Mock<IGridService> mockGridService;
 
-    [TestInitialize]
-    public void TestInitialize()
+    private IMissionController CreateMissionController()
     {
-      this.mockRepository = new MockRepository(MockBehavior.Strict);
-
-      this.mockRoverService = this.mockRepository.Create<IRoverService>();
-      this.mockGridService = this.mockRepository.Create<IGridService>();
-    }
-
-    private MissionController CreateMissionController()
-    {
-      return new MissionController(
-          this.mockRoverService.Object,
-          this.mockGridService.Object);
+      var missionController = new MissionController(new RoverService(), new GridService());
+      return missionController;
     }
 
     [TestMethod]
@@ -37,15 +24,23 @@ namespace Domain.Test.Controllers
     {
       // Arrange
       var missionController = this.CreateMissionController();
-      MissionInput missionInput = null;
+      var missionInput = new MissionInput
+      {
+        Input = "5 5" + Environment.NewLine +
+        "1 2 N" + Environment.NewLine +
+        "LMLMLMLMM" + Environment.NewLine +
+        "3 3 E" + Environment.NewLine +
+        "MMRMMRMRRM"
+      };
 
       // Act
-      var result = missionController.StartMission(
-        missionInput);
+      var result = missionController.StartMission(missionInput);
 
       // Assert
-      Assert.Fail();
-      this.mockRepository.VerifyAll();
+
+      Assert.IsTrue(result.RoversOutput.ContainsValue("1 3 N") &&
+                    result.RoversOutput.ContainsValue("5 1 E"));
+
     }
   }
 }
