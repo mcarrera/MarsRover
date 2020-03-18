@@ -39,7 +39,7 @@ namespace MarsRover.Desktop
         private void ComposeObjects()
         {
             Current.MainWindow = this._container.Get<MainWindow>();
-            Current.MainWindow.Title = "Mar Rover";
+            Current.MainWindow.Title = "Mars Rover";
         }
     }
 }
