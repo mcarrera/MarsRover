@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Domain.Model.Rover;
-
-namespace Domain.Model.Grid
+﻿namespace Domain.Model.Grid
 {
   public class Grid : IGrid
   {

@@ -105,7 +105,7 @@ namespace Domain.Controllers
             }
             else
             {
-              throw new MoveOutOfBoundariesException($"Rover stepping out of the grid.");
+              throw new OutOfBoundariesException($"Rover stepping out of the grid.");
             }
             break;
           default:

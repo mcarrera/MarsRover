@@ -21,7 +21,7 @@ namespace Domain.Test.Services.Rover
     }
 
     [TestInitialize]
-    public  void SetRoverInitialPosition()
+    public void SetRoverInitialPosition()
     {
       var initialRoverPosition = new Position { X = 1000, Y = 1000 };
       _rover.SetPosition(initialRoverPosition);
@@ -48,67 +48,15 @@ namespace Domain.Test.Services.Rover
     {
       // Arrange
       var expected = Heading.West;
+
       _service.SetRoverHeading(_rover, expected);
 
       // Act
       var actual = _service.GetRoverHeading(_rover);
 
       // Assert
-      Assert.IsTrue(actual==expected);
+      Assert.IsTrue(actual == expected);
     }
-
-    [TestMethod]
-    public void MoveRover_1()
-    {
-      // Arrange
-     
-    }
-    //[TestMethod]
-    //public void MoveRover_2()
-    //{
-    //  // Arrange
-    //  IRoverService service = new RoverService();
-    //  IRover rover = new Domain.Model.Position.Rover();
-    //  rover.SetPosition("33E");
-    //  var instructions = "MMRMMRMRRM";
-
-    //  // Act
-    //  service.MoveRover(rover, instructions);
-
-    //  // Assert
-    //  Assert.IsTrue(rover.GetPosition() == "5 1 E");
-    //}
-
-    //[TestMethod]
-    //public void MoveRover_ExpectedSamePosition()
-    //{
-    //  // Arrange
-    //  IRoverService service = new RoverService();
-    //  IRover rover = new Domain.Model.Position.Rover();
-    //  rover.SetPosition("00E");
-    //  var instructions = "MMRRMM";
-
-    //  // Act
-    //  service.MoveRover(rover, instructions);
-
-    //  // Assert
-    //  Assert.IsTrue(rover.GetPosition() == "0 0 W");
-    //}
-
-    //[TestMethod]
-    //public void MoveRover_ExpectedSamePositionAndHeading()
-    //{
-    //  // Arrange
-    //  IRoverService service = new RoverService();
-    //  IRover rover = new Domain.Model.Position.Rover();
-    //  rover.SetPosition("00E");
-    //  var instructions = "MMRRMMLL";
-
-    //  // Act
-    //  service.MoveRover(rover, instructions);
-
-    //  // Assert
-    //  Assert.IsTrue(rover.GetPosition() == "0 0 E");
   }
 
 }

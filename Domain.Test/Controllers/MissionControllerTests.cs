@@ -43,7 +43,7 @@ namespace Domain.Test.Controllers
     }
 
     [TestMethod]
-    [ExpectedException(typeof(MoveOutOfBoundariesException))]
+    [ExpectedException(typeof(OutOfBoundariesException))]
     public void StartMission_OutOfBoundariesNorth_Exception()
     {
       // Arrange
@@ -63,7 +63,7 @@ namespace Domain.Test.Controllers
     }
 
     [TestMethod]
-    [ExpectedException(typeof(MoveOutOfBoundariesException))]
+    [ExpectedException(typeof(OutOfBoundariesException))]
     public void StartMission_OutOfBoundariesSouth_Exception()
     {
       // Arrange
@@ -83,7 +83,7 @@ namespace Domain.Test.Controllers
     }
 
     [TestMethod]
-    [ExpectedException(typeof(MoveOutOfBoundariesException))]
+    [ExpectedException(typeof(OutOfBoundariesException))]
     public void StartMission_OutOfBoundariesEast_Exception()
     {
       // Arrange
@@ -103,7 +103,7 @@ namespace Domain.Test.Controllers
     }
 
     [TestMethod]
-    [ExpectedException(typeof(MoveOutOfBoundariesException))]
+    [ExpectedException(typeof(OutOfBoundariesException))]
     public void StartMission_OutOfBoundariesWest_Exception()
     {
       // Arrange

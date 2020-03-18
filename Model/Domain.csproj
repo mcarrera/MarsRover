@@ -50,7 +50,7 @@
     <Compile Include="Controllers\IMissionController.cs" />
     <Compile Include="Controllers\MissionController.cs" />
     <Compile Include="Model\Enums\Heading.cs" />
-    <Compile Include="Model\Exceptions\MoveOutOfBoundariesException.cs" />
+    <Compile Include="Model\Exceptions\OutOfBoundariesException.cs" />
     <Compile Include="Model\Exceptions\MissionInputException.cs" />
     <Compile Include="Model\Grid\Grid.cs" />
     <Compile Include="Model\Grid\IGrid.cs" />
