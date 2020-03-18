@@ -30,30 +30,39 @@ namespace Domain.Controllers
       var inputLines = ParseInput(missionInput).ToArray();
       var gridSize = inputLines[0];
 
-      InitialiazeGrid(gridSize);
+      SetupGrid(gridSize);
 
       var roverInstructions = inputLines.ToList();
       roverInstructions.RemoveAt(0);
       var result = ProcessRoverInstructions(roverInstructions);
 
-      //
       return new MissionResult { MissionIsSuccess = true, RoversOutput = result };
     }
 
+    /// <summary>
+    /// Parse the instructions lines to create and move each rover
+    /// </summary>
+    /// <param name="roverInstructions"></param>
+    /// <returns></returns>
     private Dictionary<Guid, string> ProcessRoverInstructions(IEnumerable<string> roverInstructions)
     {
       var result = new Dictionary<Guid, string>();
       var lines = roverInstructions.ToArray();
       for (var i = 0; i < lines.Count(); i = i + 2)
       {
-        var rover = InitializeRover(lines[i]);
+        var rover = SetUpRover(lines[i]);
         result.Add(rover.GetId(), ProcessRoverInstruction(rover, lines[i + 1]));
       }
 
       return result;
     }
 
-    private IRover InitializeRover(string initialPosition)
+    /// <summary>
+    /// Creates the rover and sets its initial position and heading
+    /// </summary>
+    /// <param name="initialPosition"></param>
+    /// <returns></returns>
+    private IRover SetUpRover(string initialPosition)
     {
       IRover rover = new Rover();
       var items = initialPosition.Trim().Split(' ');
@@ -86,6 +95,12 @@ namespace Domain.Controllers
       return rover;
     }
 
+    /// <summary>
+    /// Move the rover according to instructions, verifying the move is within the grid boundaries
+    /// </summary>
+    /// <param name="rover"></param>
+    /// <param name="roverInstructions"></param>
+    /// <returns></returns>
     private string ProcessRoverInstruction(IRover rover, string roverInstructions)
     {
       foreach (var move in roverInstructions.ToUpperInvariant())
@@ -118,6 +133,11 @@ namespace Domain.Controllers
 
     }
 
+    /// <summary>
+    /// Returns the rover position and heading in string format
+    /// </summary>
+    /// <param name="rover"></param>
+    /// <returns></returns>
     private string GetRoverPositionAndHeadingString(IRover rover)
     {
       var position = _roverService.GetRoverPosition(rover);
@@ -158,7 +178,7 @@ namespace Domain.Controllers
     /// Create a new grid and specify height and width
     /// </summary>
     /// <param name="input"></param>
-    private void InitialiazeGrid(string input)
+    private void SetupGrid(string input)
     {
       _grid = new Grid();
 
