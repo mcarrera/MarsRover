@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarsRover.Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="CadetBlue">
+        Title="MainWindow" Height="900" Width="1200" Background="CadetBlue">
     <Grid ShowGridLines="False">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="450"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
 
@@ -23,7 +24,7 @@
 
         <TextBox Name="InputTextBox" AcceptsReturn="True" Grid.Column="1" Grid.Row="0" Margin="3" HorizontalAlignment="Stretch"   />
         <TextBox Name="OutputTextBox" AcceptsReturn="True" IsReadOnly="True"  Grid.Column="1" Grid.Row="1" Margin="3"  HorizontalAlignment="Stretch" ></TextBox>
-
+    <Image Grid.Column="2" Grid.Row="0" Source="Resources/compass_PNG25581.png" Margin="15"   />
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right">
             <Button Content="Go" Grid.Column="1" Grid.Row="5" Width="100" Margin="3" Click="GoButton_Click" />
             <Button Content="Exit" Grid.Column="1" Grid.Row="5" Width="100" HorizontalAlignment="Right" Margin="3" Click="CloseButton_Click"/>

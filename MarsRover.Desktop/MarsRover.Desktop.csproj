@@ -95,6 +95,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\compass1.webp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -104,6 +105,15 @@
       <Project>{fde85b58-c05b-4c2e-895b-0625cc3f7f9e}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CompassCard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\compass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\compass_PNG25581.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
