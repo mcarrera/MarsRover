@@ -34,9 +34,9 @@ namespace Domain.Controllers
 
       var roverInstructions = inputLines.ToList();
       roverInstructions.RemoveAt(0);
-      var result = ProcessRoverInstructions(roverInstructions);
+      var output = ProcessRoverInstructions(roverInstructions);
 
-      return new MissionResult { MissionIsSuccess = true, RoversOutput = result };
+      return new MissionResult { MissionIsSuccess = true, RoversOutput = output };
     }
 
     /// <summary>
@@ -90,7 +90,6 @@ namespace Domain.Controllers
           throw new MissionInputException($"Invalid input for rover initial direction: ${items[2]}");
 
       }
-
 
       return rover;
     }
